@@ -25,7 +25,7 @@ public class Tokenizer
    *          this Tokenizer's input stream...
    */     
   public static List<String> tokenize( String line )
-  {    
+  {
     List<String> tokens = new LinkedList<String>();
     Pattern pat = Pattern.compile( "[a-zA-Z]+|[0-9]*\\.[0-9]+|[0-9]+|[\\+\\-\\^\\*/#\\(\\)]" );
     Matcher match = pat.matcher( line );
