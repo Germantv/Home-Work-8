@@ -111,19 +111,6 @@ public class Quantity {
 		//get all the maps and list of keys for the maps
 		HashMap<String,Integer> nQ = new HashMap<String,Integer>();
 		HashMap<String,Integer> oQ = (HashMap<String,Integer>)q.getMap();
-	//List<String> qlist = q.listUnits();
-
-		//		for(String s:qlist){
-		//			if(nQ.get(s) == null){
-		//				units.put(s,1);
-		//				listUnits.add(s);
-		//			}
-		//			else{
-		//				int old = (int)units.get(s);
-		//				units.put(s, old+1);
-		//			}
-		//		}
-
 		TreeSet<String> qlist = new TreeSet<String>(oQ.keySet());
 		TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
 		
@@ -170,13 +157,64 @@ public class Quantity {
 		return toReturn;
 
 	}	
-/*
-	public List<String> listUnits(){
-		return listUnits;
-	}
 
-*/
+	//multiply this quantity by another and return a new quantity as the result
+		public Quantity div(Quantity q){
+			if(q == null)
+				throw new IllegalArgumentException();
 
+			//create an empty quantity to return
+			Quantity toReturn = new Quantity();
+
+			//get all the maps and list of keys for the maps
+			HashMap<String,Integer> nQ = new HashMap<String,Integer>();
+			HashMap<String,Integer> oQ = (HashMap<String,Integer>)q.getMap();
+			TreeSet<String> qlist = new TreeSet<String>(oQ.keySet());
+			TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
+			
+			//look through the list of units and add the multiples together
+			//from each map of the two multiplying things
+			for(String s:qlist){
+				int i = oQ.get(s) * -1;
+
+				if(nQ.get(s) == null){
+					nQ.put(s,i);
+				}
+				else{
+					int old = (int)nQ.get(s);
+					nQ.put(s, old+i);
+					if(nQ.get(s) == 0){
+						nQ.remove(s);
+					}
+				}
+			}
+			
+			for(String s:listUnits){
+				int i = (int) units.get(s);
+
+
+				if(nQ.get(s) == null){
+					nQ.put(s,i);
+				}
+				else{
+					int old = (int)nQ.get(s);
+					nQ.put(s, old+i);
+					if(nQ.get(s) == 0){
+						nQ.remove(s);
+					}
+				}
+			}
+			
+			//multiplying the actual value
+			double ndub = value / q.getValue();
+			
+			//set the newly calculated maps and values for the new quantity
+			toReturn.setValue(ndub);
+			toReturn.setMap(nQ);
+
+			return toReturn;
+
+		}	
 	
 	
 	//raise this quantity to a power
