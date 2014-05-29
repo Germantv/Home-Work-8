@@ -86,7 +86,7 @@ public class QuantityTester extends TestCase {
 	  public void testMul(){ 
 		  Quantity newQ = dCon.mul(noCon);
 		  double result=3.14159*1;
-		  assertEquals(newQ, new Quantity(result));
+		  assertEquals(true, newQ.equals(new Quantity(result, null, null)));
 	  }
 
 	  /**
@@ -106,7 +106,7 @@ public class QuantityTester extends TestCase {
 		  double result=(4.9/9.8);
 		  Quantity resultQ = new Quantity(result, null, null);
 
-		  assertEquals(newQ, resultQ);  //signs should have cancled out
+		  assertEquals(true, newQ.equals(resultQ));  //signs should have cancled out
 	  }
 	  /**
 	   * Tests anouther case of division
@@ -129,10 +129,15 @@ public class QuantityTester extends TestCase {
 		 		  
 		  Quantity newQ = noCon.add(new Quantity(number,null,null));
 		  
+		  System.out.println(newQ);
+		  
 		  double result=(1+number);		  
 		  Quantity resultQ = new Quantity(result,null,null);
 		  
-		  assertEquals(newQ, resultQ);
+		  System.out.println(resultQ);
+
+		  
+		  assertEquals(true, newQ.equals(resultQ));
 	  }
 	  
 /**
@@ -166,7 +171,7 @@ public class QuantityTester extends TestCase {
 		  Quantity newQ = dCon.pow(number);
 		  
 		  double result = Math.pow(3.14159, number);		  
-		  Quantity resultQ = new Quantity(result);
+		  Quantity resultQ = new Quantity(result,null,null);
 		  
 		  assertEquals(newQ, resultQ);
 	  }
@@ -182,9 +187,8 @@ public class QuantityTester extends TestCase {
 		  double result=(1-number);		  
 		  Quantity resultQ = new Quantity(result,null,null);
 		  
-		  assertEquals(newQ, resultQ);
+		  assertEquals(true, newQ.equals(resultQ));
 	  }
-	  klsadf
 /**
  * 2nd subtraction test
  */

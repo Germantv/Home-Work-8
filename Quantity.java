@@ -57,12 +57,20 @@ public class Quantity {
 	 * @param B is the Quantity object that you want to Add
 	 * @return an new Quantity object
 	 */
-	public Quantity add(Quantity A, Quantity B){
+	public Quantity add(Quantity A){
 		Quantity nQ;
 		
+		if(A == null){
+			throw new IllegalArgumentException();
+		}
+		
+		HashMap<String,Integer> old = (HashMap<String,Integer>)A.getMap();
+		if(!old.equals(units)){
+			throw new IllegalArgumentException();
+		}
 		//Need to write check units and write exception method if statement
 		
-		double nvalue = A.getValue()+B.getValue();
+		double nvalue = A.getValue()+value;
 		nQ = new Quantity(A);
 		nQ.setValue(nvalue);
 
@@ -75,12 +83,21 @@ public class Quantity {
 	 * @param B is the Quantity object that you want to subtract
 	 * @return a new Quantity Object
 	 */
-	public Quantity sub(Quantity A, Quantity B){
+	public Quantity sub(Quantity A){
 		Quantity nQ;
 		
+		if(A == null){
+			throw new IllegalArgumentException();
+		}
+		
+		HashMap<String,Integer> old = (HashMap<String,Integer>)A.getMap();
+		
+		if(!old.equals(units)){
+			throw new IllegalArgumentException();
+		}
 		//Need to write check units and write exception method if statement
 		
-		double nvalue = A.getValue()-B.getValue();
+		double nvalue = A.getValue()-value;
 		nQ = new Quantity(A);
 		nQ.setValue(nvalue);
 
@@ -92,9 +109,9 @@ public class Quantity {
 	 * @param A Quantity wished to be negated
 	 * @return a new Quantity with a value opp to the one from Quantity in
 	 */
-	public Quantity negate(Quantity A){
+	public Quantity negate(){
 		Quantity nQ;
-		nQ = new Quantity(A);
+		nQ = new Quantity(this);
 		nQ.setValue(-value);
 		
 		return nQ;
@@ -282,6 +299,11 @@ public class Quantity {
 		DecimalFormat df = new DecimalFormat("0.0####");
 				// Put it all together and return. 
 		return df.format(valueOfTheQuantity)+ unitsString.toString();
+	}
+	
+	
+	public boolean equals(Quantity q){
+		return q.getValue() == value && q.getMap().equals(units);
 	}
 
 
