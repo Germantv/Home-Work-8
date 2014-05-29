@@ -9,13 +9,11 @@ public class MyQuanTest {
 		Quantity q1 = new Quantity(14,num1,null);
 		Quantity q2 = new Quantity(3,null,num1);
 		System.out.println(q1.toString());
-		System.out.println(q2.toString());
+//		System.out.println(q2.toString());
 		
-		Quantity qr = q1.mul(q2);
+		Quantity qr = q1.pow(2);
 		System.out.println(qr.toString());
 		
-		Quantity qr2 = qr.mul(q2);
-		System.out.println(qr2.toString());
 		
 	}
 
