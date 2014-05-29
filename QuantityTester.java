@@ -184,6 +184,7 @@ public class QuantityTester extends TestCase {
 		  
 		  assertEquals(newQ, resultQ);
 	  }
+	  klsadf
 /**
  * 2nd subtraction test
  */
