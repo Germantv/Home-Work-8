@@ -19,7 +19,16 @@ public class Quantity {
 			}
 			else{
 				int old = (int)units.get(s);
-				units.put(s, old++);
+				units.put(s, old+1);
+			}
+		}
+		for(String s : denom){
+			if(units.get(s) == null){
+				units.put(s,-1);
+			}
+			else{
+				int old = (int)units.get(s);
+				units.put(s, old-1);
 			}
 		}
 	}
