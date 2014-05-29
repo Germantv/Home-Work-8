@@ -53,8 +53,7 @@ public class Quantity {
 //Operator METHODS
 	/**
 	 * Add Method
-	 * @param A is the Quantity object that you want to Add
-	 * @param B is the Quantity object that you want to Add
+	 * @param A is the Quantity object that you want to Add to this
 	 * @return an new Quantity object
 	 */
 	public Quantity add(Quantity A){
@@ -69,8 +68,9 @@ public class Quantity {
 			throw new IllegalArgumentException();
 		}
 		//Need to write check units and write exception method if statement
-		
+
 		double nvalue = A.getValue()+value;
+
 		nQ = new Quantity(A);
 		nQ.setValue(nvalue);
 
@@ -80,7 +80,6 @@ public class Quantity {
 	/**
 	 * Subtraction Method
 	 * @param A is the Quantity object that you want to subtract
-	 * @param B is the Quantity object that you want to subtract
 	 * @return a new Quantity Object
 	 */
 	public Quantity sub(Quantity A){
@@ -97,7 +96,9 @@ public class Quantity {
 		}
 		//Need to write check units and write exception method if statement
 		
-		double nvalue = A.getValue()-value;
+
+		double nvalue = value-A.getValue();
+
 		nQ = new Quantity(A);
 		nQ.setValue(nvalue);
 

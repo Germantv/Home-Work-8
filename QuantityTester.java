@@ -189,6 +189,19 @@ public class QuantityTester extends TestCase {
 		  
 		  assertEquals(true, newQ.equals(resultQ));
 	  }
+	  
+	  //test failed subtraction
+	  public void testSub4(){
+		  
+		  double number=5992;
+		 		  
+		  Quantity newQ = noCon.sub(new Quantity(number,null,null));
+		  
+		  double result= 5;		  
+		  Quantity resultQ = new Quantity(result,null,null);
+		  
+		  assertEquals(false, newQ.equals(resultQ));
+	  }
 /**
  * 2nd subtraction test
  */
