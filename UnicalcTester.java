@@ -3,9 +3,6 @@
  * Scott O'Connell and Corlin Palmer
  */
 
-import java.util.Arrays;
-import java.util.Map;
-
 import junit.framework.TestCase;
 /**
  * I am running through all of the different recursive methods like S() and R() and setting the output string 
