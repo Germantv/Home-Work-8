@@ -46,7 +46,7 @@ public class QuantityTester extends TestCase {
 		  uCon = new Quantity(9.8, listT, listB);
 		  
 		  cCon = new Quantity(uCon);
-		  dCon = new Quantity(3.14159);
+		  dCon = new Quantity(3.14159, null, null );
 		  
 		  //Data Base stuff
 		db = new HashMap<String,Quantity>();
@@ -104,7 +104,7 @@ public class QuantityTester extends TestCase {
 		  Quantity newQ = ddQ.div(uCon);
 		  
 		  double result=(4.9/9.8);
-		  Quantity resultQ = new Quantity(result);
+		  Quantity resultQ = new Quantity(result, null, null);
 
 		  assertEquals(newQ, resultQ);  //signs should have cancled out
 	  }
@@ -113,7 +113,7 @@ public class QuantityTester extends TestCase {
 	   */
 	  public void testDiv2(){
 		 try{
-			 dCon.div(new Quantity(0));
+			 dCon.div(new Quantity(0, null, null));
 		 }
 		 catch(IllegalArgumentException e){
 			 assertEquals(1,1);
@@ -127,10 +127,10 @@ public class QuantityTester extends TestCase {
 		  
 		  double number=5.2;
 		 		  
-		  Quantity newQ = noCon.add(new Quantity(number));
+		  Quantity newQ = noCon.add(new Quantity(number,null,null));
 		  
 		  double result=(1+number);		  
-		  Quantity resultQ = new Quantity(result);
+		  Quantity resultQ = new Quantity(result,null,null);
 		  
 		  assertEquals(newQ, resultQ);
 	  }
@@ -177,10 +177,10 @@ public class QuantityTester extends TestCase {
 		  
 		  double number=5.2;
 		 		  
-		  Quantity newQ = noCon.sub(new Quantity(number));
+		  Quantity newQ = noCon.sub(new Quantity(number,null,null));
 		  
 		  double result=(1-number);		  
-		  Quantity resultQ = new Quantity(result);
+		  Quantity resultQ = new Quantity(result,null,null);
 		  
 		  assertEquals(newQ, resultQ);
 	  }
@@ -216,7 +216,7 @@ public class QuantityTester extends TestCase {
 		  Quantity newQ = dCon.negate();
 		  
 		  double result=(-3.14159);		  
-		  Quantity resultQ = new Quantity(result);
+		  Quantity resultQ = new Quantity(result,null,null);
 		  
 		  assertEquals(newQ, resultQ);
 		  
