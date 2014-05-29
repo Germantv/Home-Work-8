@@ -9,7 +9,8 @@ public class Quantity {
 	public Quantity(){
 		units = new HashMap<String,Integer>();
 		value = 1;
-	}
+	}//end of Q
+	
 	public Quantity(double val, List<String> numer, List<String> denom){
 		units = new HashMap<String,Integer>();
 		value = val;
@@ -31,6 +32,12 @@ public class Quantity {
 				units.put(s, old-1);
 			}
 		}
-	}
+	} // end of Q
 
+	public Quantity(Quantity copy){
+		
+		
+	}//end Q
+	
+	//end of method
 }
