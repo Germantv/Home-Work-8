@@ -179,6 +179,47 @@ public class Quantity {
 
 	
 	
+	//raise this quantity to a power
+	public Quantity pow(int raise){
+
+		//create an empty quantity to return
+		Quantity toReturn = new Quantity();
+
+		//get all the maps and list of keys for the maps
+		HashMap<String,Integer> nQ = new HashMap<String,Integer>();
+		TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
+		
+		for(String s:listUnits){
+			int i = (int) units.get(s);
+			
+			i = i * raise;
+
+			if(nQ.get(s) == null){
+				nQ.put(s,i);
+			}
+			else{
+				int old = (int)nQ.get(s);
+				nQ.put(s, old+i);
+				if(nQ.get(s) == 0){
+					nQ.remove(s);
+				}
+				System.out.println("IF YOU SEE THIS DO NOT REMOVE THIS PART");
+			}
+		}
+		
+		//multiplying the actual value
+		double ndub = Math.pow(value, raise);
+		
+		//set the newly calculated maps and values for the new quantity
+		toReturn.setValue(ndub);
+		toReturn.setMap(nQ);
+
+		return toReturn;
+	}
+	
+	
+	
+	
 	public void setMap(Map m){
 		units = m;
 	}
