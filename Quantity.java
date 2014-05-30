@@ -274,8 +274,6 @@ public class Quantity {
 	}
 	
 	
-	
-	
 	public void setMap(Map m){
 		units = m;
 	}
@@ -302,86 +300,75 @@ public class Quantity {
 		return df.format(valueOfTheQuantity)+ unitsString.toString();
 	}
 	
-	/*
 	public boolean equals(Quantity q){
-		return q.getValue() == value && q.getMap().equals(units);
+		return roundTo5(q.getValue()) == roundTo5(value) && q.getMap().equals(units);
 	}
-*/
-	/**
-	 * This method takes the Quantity and it turns the units into base units.  
-	 * it does this through a recursive step
-	 * @return
-	 */
-	public Quantity normalize(Map<String,Quantity> db){
-		////////////NOT FINISHED////////////////
-		///////////Still Working////////////////
-		HashMap<String,Integer> newMap = new HashMap<String,Integer>();
-			TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
-			
-			//Going to need for recursive step
-			 			
-			Quantity holder;
-			
-			
+	
+	private double roundTo5(double i){
+		return ((double)((int)(i*100000)))/100000;
+	}
+	
+	public int hashCode(){
+		return this.toString().hashCode();
+	}
+	
+	public Quantity mynormalize(Map<String,Quantity> db){		
+		Quantity toReturn = new Quantity();
+
+		//get all the maps and list of keys for the maps
+		TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
+		
+		//System.out.println(this + " is this");
+		toReturn = this;
+
+		
 		for(String s:listUnits){
-			
-			holder = simplify( db);
-
-			//Time to simplify
-			if(holder != null){
-			Map<String, Integer> holderM = holder.getMap();
-			value=value*holder.getValue();
-			TreeSet<String> qlist = new TreeSet<String>(holderM.keySet());
-			//add and simplify units
-			for(String w:qlist){
-				//this is makeing sure all of the units in the quantity are simplified
-				int i = holderM.get(w);
-
-				if(newMap.get(w) == null){
-					newMap.put(w,i);
-				}
-				else{
-					int old = (int)newMap.get(w);
-					newMap.put(w, old+i);
-					if(newMap.get(w) == 0){
-						newMap.remove(w);
-					}
-				}
-			}		
+			int val = (int)toReturn.getMap().get(s);
+			//System.out.println("go for " + s + " at " + val);
+			toReturn.getMap().remove(s);
+			for(int i = 0; i < val; i++){
+				toReturn = normalizedUnit(s,db).mul(toReturn);
+//				System.out.println(normalizedUnit(s,db) + " is normalized unit (mul)");
+//				System.out.println(toReturn.toString() + " after mult");
+			}
+			for(int i = 0; i > val; i--){
+				toReturn = toReturn.div(normalizedUnit(s,db));
+//				System.out.println(normalizedUnit(s,db) + " is normalized unit (div)");
+//				System.out.println(toReturn.toString() + " after mult");
 			}
 		}
+
+		return toReturn;
+	}
+	
+	public static Quantity normalizedUnit(String fromUnit, Map<String,Quantity> db){
+		if(db == null)
+			throw new NullPointerException();
 		
-		Quantity edit = new Quantity(this);
-		edit.setMap(newMap);
-		System.out.println(edit.toString());
-	return  edit;
+		Quantity newUnit = db.get(fromUnit);
+		Quantity thisUnit = new Quantity(1.0, Arrays.asList(fromUnit), Collections.<String>emptyList());
+		
+		//return original unit if not found
+		if(newUnit == null)
+			return thisUnit;
+		
+		//totvalue keeps track of units as unit values keep changing
+		double totvalue = 1;
+		
+		while (newUnit != null && !thisUnit.getMap().equals(newUnit.getMap())){
+			thisUnit = newUnit;
+			totvalue = totvalue * newUnit.getValue();
+			newUnit = db.get(newUnit.getUnit());
+		}
+		thisUnit.setValue(totvalue);
+		return thisUnit;
 		}
 	
-
-//Helper Methods
-	@SuppressWarnings("unchecked")
-	public Quantity simplify( Map<String,Quantity> db){
-		//Get the data Base
-		
-		Quantity tester = new Quantity(this);
-		
-		/*
-		if(db.get(s)==null)
-			return tester;
-		*/
-		if(db.get(s)!=null){
-		 tester = db.get(s); 
-
-				//make new quantity from the output of db and check its string value.
-				//Might there be a more effiecent way?  Is recursive;
-		 		Map unitsT =  tester.getMap();
-		 		TreeSet<String> listUnits = new TreeSet<String>(unitsT.keySet());
-		 		Quantity checker = new Quantity(tester);
-		 		System.out.println(checker);
-		 		tester = simplify(checker,db);
-		}
-	return tester;
-		
+	public String getUnit(){
+		TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
+		if(listUnits.size()>1)
+			return "";
+		else return listUnits.pollFirst();
 	}
 	
 	public Map getMap(){
