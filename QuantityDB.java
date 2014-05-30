@@ -47,7 +47,7 @@ class QuantityDB {
     db.put("lx", new Quantity(1.0, Arrays.asList("lux"), Collections.<String>emptyList()));
     db.put("m", new Quantity(1.0, Arrays.asList("meter"), Collections.<String>emptyList()));
     db.put("megohm", new Quantity(1000000.0, Arrays.asList("ohm"), Collections.<String>emptyList()));
-    db.put("metre", new Quantity(1.0, Arrays.asList("meter"), Collections.<String>emptyList()));
+    db.put("meter", new Quantity(1.0, Arrays.asList("meter"), Collections.<String>emptyList()));
     db.put("mev", new Quantity(1000000.0, Arrays.asList("electron_volt"), Collections.<String>emptyList()));
     db.put("mho", new Quantity(1.0, Arrays.asList("siemens"), Collections.<String>emptyList()));
     db.put("microhm", new Quantity(1.0e-6, Arrays.asList("ohm"), Collections.<String>emptyList()));

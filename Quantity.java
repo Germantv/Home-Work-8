@@ -302,11 +302,11 @@ public class Quantity {
 		return df.format(valueOfTheQuantity)+ unitsString.toString();
 	}
 	
-	
+	/*
 	public boolean equals(Quantity q){
 		return q.getValue() == value && q.getMap().equals(units);
 	}
-
+*/
 	/**
 	 * This method takes the Quantity and it turns the units into base units.  
 	 * it does this through a recursive step
@@ -320,17 +320,22 @@ public class Quantity {
 			
 			//Going to need for recursive step
 			 			
-			Map<String,Integer> holder;
+			Quantity holder;
+			
 			
 		for(String s:listUnits){
 			
-			holder = simplify(s, db);
-			
-			TreeSet<String> qlist = new TreeSet<String>(holder.keySet());
+			holder = simplify( db);
+
+			//Time to simplify
+			if(holder != null){
+			Map<String, Integer> holderM = holder.getMap();
+			value=value*holder.getValue();
+			TreeSet<String> qlist = new TreeSet<String>(holderM.keySet());
 			//add and simplify units
 			for(String w:qlist){
 				//this is makeing sure all of the units in the quantity are simplified
-				int i = holder.get(w);
+				int i = holderM.get(w);
 
 				if(newMap.get(w) == null){
 					newMap.put(w,i);
@@ -343,35 +348,40 @@ public class Quantity {
 					}
 				}
 			}		
-			
+			}
 		}
 		
 		Quantity edit = new Quantity(this);
 		edit.setMap(newMap);
+		System.out.println(edit.toString());
 	return  edit;
 		}
 	
 
 //Helper Methods
 	@SuppressWarnings("unchecked")
-	public Map<String,Integer> simplify(String s,  Map<String,Quantity> db){
+	public Quantity simplify( Map<String,Quantity> db){
 		//Get the data Base
-			 
-		Quantity tester = db.get(s); 		
-				
+		
+		Quantity tester = new Quantity(this);
+		
+		/*
+		if(db.get(s)==null)
+			return tester;
+		*/
+		if(db.get(s)!=null){
+		 tester = db.get(s); 
+
 				//make new quantity from the output of db and check its string value.
 				//Might there be a more effiecent way?  Is recursive;
 		 		Map unitsT =  tester.getMap();
 		 		TreeSet<String> listUnits = new TreeSet<String>(unitsT.keySet());
-		 		String checker = listUnits.first();
-		 		
-		 		
-	if(db.get(checker).equals(tester))
-		return ((Quantity)tester.getMap()).getMap();
-	
-	return simplify(checker,db);
-	
-	
+		 		Quantity checker = new Quantity(tester);
+		 		System.out.println(checker);
+		 		tester = simplify(checker,db);
+		}
+	return tester;
+		
 	}
 	
 	public Map getMap(){
