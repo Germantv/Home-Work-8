@@ -18,8 +18,8 @@ public class ASTTester extends TestCase {
 	public void setUp(){
 		//2 values are 22.3 and 34.6
 		
-		valueA = new Value(new Quantity(22.3));
-		valueB = new Value(new Quantity(34.6));
+		valueA = new Value(new Quantity(22.3, null, null));
+		valueB = new Value(new Quantity(34.6, null,null));
 		tester = new Sum(valueA, valueB);
 	}
 	

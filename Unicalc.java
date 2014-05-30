@@ -60,6 +60,13 @@ class Unicalc
   public AST S()
   {
     //  S -> def W L | L
+	  String next = toks.peek(); 
+	  //Check to see if it is a Addition
+	  if ( ("deff").equals(next) ) {	   
+		  toks.pop();
+	  	  AST l = L();
+	  	  return new Define(next,l);    
+	    } 
 
     return L();  // I don't think we should *always* do this...
   }
@@ -67,7 +74,15 @@ class Unicalc
   public AST L()
   {
     // L -> # E | E
-
+	  String next = toks.peek(); 
+	  //Check to see if it is a Addition
+	  if ( ("#").equals(next) ) {	   
+		  toks.pop();
+	  	  AST e = E();
+	  	  return new Normalize(e);    
+	    } 
+	  
+	  
     return E();  // I don't think we should *always* do this...
   }
 
@@ -76,6 +91,20 @@ class Unicalc
    //   E -> P + E | P - E | P
 
    AST p = P();
+   
+   String next = toks.peek(); 
+	  //Check to see if it is a Addition
+	  if ( ("+").equals(next) ) {	   
+		  toks.pop();
+	  	  AST e = E();
+	  	  return new Sum(p,e);    
+	    } 
+	  //Check to see if it is aSub
+ if(  ("-").equals(next) ){
+	 toks.pop();
+	  	  AST e = E();
+	  	  return new Difference(p,e); 
+ }
    
    return p;  // I don't think we should *always* do this...
   }
@@ -86,12 +115,35 @@ class Unicalc
     
     AST k = K();
     
+	  String next = toks.peek(); 
+	  //Check to see if it is a Product
+	  if ( ("*").equals(next) ) {	   
+		  toks.pop();
+	  	  AST p = P();
+	  	  return new Product(k,p);    
+	    } 
+	  //Check to see if it is a Quotient 
+    if(  ("/").equals(next) ){
+    	 toks.pop();
+	  	  AST p = P();
+	  	  return new Quotient(k,p); 
+    }
+    //or Return
     return k;  // I don't think we should *always* do this
   }
     
   public AST K()
   {
     // K -> - K | Q 
+	  
+	  String next = toks.peek(); 
+	  if ( ("-").equals(next) ) {
+		  toks.pop();
+		  AST q = Q(); 
+	  	  AST k = K();
+	      return new Negation(q);    
+	    } 
+	    
     
     return Q();  // I don't think we should *always* do this
   }
@@ -129,6 +181,15 @@ class Unicalc
     // Q -> R | R Q 
     
     AST r = R();
+    
+    String next = toks.peek();  
+    
+    if ( isAlphabetic(next) || isNumber(next) ) {
+ 
+  	  AST q = Q();
+      return new Product(r, q);    
+    }
+    
 
     return r;  // I don't think I should *always* do this
                //   (e.g., if I peek and the R is followed
@@ -141,8 +202,20 @@ class Unicalc
   public AST R()
   {
     // R -> V | V ^ J
+	  
+	  AST v = V();
+
+	  
+	  String next = toks.peek();  
+	    
+	    if ( ("^").equals(next) ) {
+	    	 toks.pop();
+	  	  int j = J();
+	      return new Power(v, j);    
+	    }
+	  
     
-    AST v = V();
+  
 
     return v;  // I don't think I should *always* do this
   }
