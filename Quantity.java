@@ -24,7 +24,7 @@ public class Quantity {
 
 				}
 				else{
-					int old = (int)units.get(s);
+					int old = (Integer)units.get(s);
 					units.put(s, old+1);
 				}
 			}
@@ -36,7 +36,7 @@ public class Quantity {
 					units.put(s,-1);
 				}
 				else{
-					int old = (int)units.get(s);
+					int old = (Integer)units.get(s);
 					units.put(s, old-1);
 				}
 			}
@@ -150,7 +150,7 @@ public class Quantity {
 		}
 		
 		for(String s:listUnits){
-			int i = (int) units.get(s);
+			int i = (Integer) units.get(s);
 
 
 			if(nQ.get(s) == null){
@@ -208,7 +208,7 @@ public class Quantity {
 			}
 			
 			for(String s:listUnits){
-				int i = (int) units.get(s);
+				int i = (Integer) units.get(s);
 
 
 				if(nQ.get(s) == null){
@@ -246,7 +246,7 @@ public class Quantity {
 		TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
 		
 		for(String s:listUnits){
-			int i = (int) units.get(s);
+			int i = (Integer) units.get(s);
 			
 			i = i * raise;
 
@@ -307,9 +307,73 @@ public class Quantity {
 		return q.getValue() == value && q.getMap().equals(units);
 	}
 
+	/**
+	 * This method takes the Quantity and it turns the units into base units.  
+	 * it does this through a recursive step
+	 * @return
+	 */
+	public Quantity normalize(Map<String,Quantity> db){
+		////////////NOT FINISHED////////////////
+		///////////Still Working////////////////
+		HashMap<String,Integer> newMap = new HashMap<String,Integer>();
+			TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
+			
+			//Going to need for recursive step
+			 			
+			Map<String,Integer> holder;
+			
+		for(String s:listUnits){
+			
+			holder = simplify(s, db);
+			
+			TreeSet<String> qlist = new TreeSet<String>(holder.keySet());
+			//add and simplify units
+			for(String w:qlist){
+				//this is makeing sure all of the units in the quantity are simplified
+				int i = holder.get(w);
 
+				if(newMap.get(w) == null){
+					newMap.put(w,i);
+				}
+				else{
+					int old = (int)newMap.get(w);
+					newMap.put(w, old+i);
+					if(newMap.get(w) == 0){
+						newMap.remove(w);
+					}
+				}
+			}		
+			
+		}
+		
+		Quantity edit = new Quantity(this);
+		edit.setMap(newMap);
+	return  edit;
+		}
+	
 
 //Helper Methods
+	@SuppressWarnings("unchecked")
+	public Map<String,Integer> simplify(String s,  Map<String,Quantity> db){
+		//Get the data Base
+			 
+		Quantity tester = db.get(s); 		
+				
+				//make new quantity from the output of db and check its string value.
+				//Might there be a more effiecent way?  Is recursive;
+		 		Map unitsT =  tester.getMap();
+		 		TreeSet<String> listUnits = new TreeSet<String>(unitsT.keySet());
+		 		String checker = listUnits.first();
+		 		
+		 		
+	if(db.get(checker).equals(tester))
+		return ((Quantity)tester.getMap()).getMap();
+	
+	return simplify(checker,db);
+	
+	
+	}
+	
 	public Map getMap(){
 		return units;
 	}
