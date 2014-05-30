@@ -20,7 +20,7 @@ public class MyQuanTest {
 		Quantity q2 = new Quantity(3,num3,null);
 		
 		System.out.println(q1.toString() + " is q1");
-		System.out.println(q1.mynormalize(QuantityDB.getDB()).toString());
+		System.out.println(q1.normalize(QuantityDB.getDB()).toString());
 		
 		//System.out.println(q1.toString());
 		//System.out.println(q2.toString());

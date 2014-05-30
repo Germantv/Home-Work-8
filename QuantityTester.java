@@ -237,8 +237,7 @@ public class QuantityTester extends TestCase {
 		  double result=(-3.14159);		  
 		  Quantity resultQ = new Quantity(result,null,null);
 		  
-		  assertEquals(newQ, resultQ);
-		  
+		  assertEquals(true, newQ.equals(resultQ));
 	  }
 	  
 	  /**
@@ -283,7 +282,7 @@ public class QuantityTester extends TestCase {
 		  Quantity newQ = new Quantity(1, Arrays.asList(top), Arrays.asList(bottom));
 		  Quantity newQN = new Quantity(1000, Arrays.asList(top2), Arrays.asList(bottom));
 		  
-		  assertEquals(newQN, newQ.normalize(db));
+		  assertEquals(true, newQN.equals(newQ.normalize(db)));
 	  }
 	  
 	  //all the testers work well.
