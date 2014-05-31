@@ -61,11 +61,12 @@ class Unicalc
   {
     //  S -> def W L | L
 	  String next = toks.peek(); 
-	  //Check to see if it is a Addition
-	  if ( ("deff").equals(next) ) {	   
+	  //Check to see if it is a Definition
+	  if ( ("def").equals(next) ) {	   
 		  toks.pop();
+		  String unitName = toks.pop(); 
 	  	  AST l = L();
-	  	  return new Define(next,l);    
+	  	  return new Define(unitName,l);
 	    } 
 
     return L();  // I don't think we should *always* do this...
@@ -75,7 +76,7 @@ class Unicalc
   {
     // L -> # E | E
 	  String next = toks.peek(); 
-	  //Check to see if it is a Addition
+	  //Check to see if it is a Normalization
 	  if ( ("#").equals(next) ) {	   
 		  toks.pop();
 	  	  AST e = E();
@@ -93,7 +94,7 @@ class Unicalc
    AST p = P();
    
    String next = toks.peek(); 
-	  //Check to see if it is a Addition
+	  //Check to see if it is an Addition
 	  if ( ("+").equals(next) ) {	   
 		  toks.pop();
 	  	  AST e = E();
