@@ -1,3 +1,11 @@
+/**
+ * CSE 12 Homework 8 
+ * Corlin Palmer and Scott Oconnell
+ * A11608305 and A
+ * Section B00
+ * June 2, 2014
+ */
+
 import junit.framework.TestCase;
 
 /**

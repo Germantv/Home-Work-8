@@ -1,3 +1,11 @@
+/**
+ * CSE 12 Homework 8 
+ * Corlin Palmer and Scott Oconnell
+ * A11608305 and A
+ * Section B00
+ * June 2, 2014
+ */
+
 // file:    Tokenizer.java
 // purpose: Input Tokenizer
 // author:  Zach Dodds, Christine Alvarado

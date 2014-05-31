@@ -12,11 +12,11 @@ import java.util.*;
 /**
  * Contains the values and units for the quantity object along with 
  * a number of mathods for numerical operations on the quantity
- * @author Corlin Palmer and Scott Oconnell
+ * @author Scott O'Connell A11406876, scoconne@ucsd.edu cs12sfo and Corlin Palmer cs12sfq
  */
 public class Quantity {
 	protected double value;
-	protected Map units;
+	protected HashMap<String,Integer> units;
 	
 	///////////////Begin Constructor Methods///////////////
 
@@ -421,7 +421,7 @@ public class Quantity {
 	 * @return the hash map
 	 */
 	public HashMap<String,Integer> getMap(){
-		return (HashMap<String,Integer>)units;
+		return units;
 	}
 
 	/**

@@ -1,4 +1,10 @@
-
+/**
+ * CSE 12 Homework 8 
+ * Corlin Palmer and Scott Oconnell
+ * A11608305 and A
+ * Section B00
+ * June 2, 2014
+ */
 
 /**
  * @author Scott O'Connell A11406876, scoconne@ucsd.edu cs12sfo and Corlin Palmer cs12sfq

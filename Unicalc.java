@@ -1,10 +1,16 @@
+/**
+ * CSE 12 Homework 8 
+ * Corlin Palmer and Scott Oconnell
+ * A11608305 and A
+ * Section B00
+ * June 2, 2014
+ */
+
 // Unicalc.java
 // Original Author: Chris Stone, Harvey Mudd College
 // TODO: Fill in and modify the functions below where the comments
 //   suggest changes are needed so that these functions correctly parse
 //   the Unicalc language
-
-// Extended by:
 
 import java.util.*;        // Scanner, LinkedList, ...
 import java.util.regex.*;  // Pattern, Matcher, ...
