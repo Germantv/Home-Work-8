@@ -17,6 +17,8 @@ import java.util.*;
 public class Quantity {
 	protected double value;
 	protected Map units;
+	
+	///////////////Begin Constructor Methods///////////////
 
 	/**
 	 * Creates a new Quantity object with value of one and no units
@@ -70,8 +72,6 @@ public class Quantity {
 		units = new HashMap<String,Integer>(copy.getMap());
 		value = copy.getValue();
 	}
-
-
 
 	//////////////////Begin Operator METHODS////////////////////
 	/**
@@ -130,7 +130,7 @@ public class Quantity {
 
 		return nQ;
 	}
-	
+
 	/**
 	 * multiply this quantity by another and return a new quantity as the result
 	 * @param q the quantity to multiply by
@@ -227,7 +227,7 @@ public class Quantity {
 				}
 			}
 		}
-		
+
 		//all essentially the same as mul
 		for(String s:listUnits){
 			int i = (Integer) units.get(s);
@@ -286,7 +286,7 @@ public class Quantity {
 
 		return toReturn;
 	}
-	
+
 	/**
 	 * normalize the current quantity AKA transform it into its base units
 	 * @param db the database of unit relations to use for the normalization
@@ -303,7 +303,7 @@ public class Quantity {
 			int val = (int)toReturn.getMap().get(s);
 			//remove the current unit because we are going to multiply by it's base
 			toReturn.getMap().remove(s);
-			
+
 			//run this loop to multiply the base unit val number of times
 			for(int i = 0; i < val; i++){
 				toReturn = normalizedUnit(s,db).mul(toReturn);
@@ -347,19 +347,22 @@ public class Quantity {
 		thisUnit.setValue(totvalue);
 		return thisUnit;
 	}
-	
-	//////////////////end basic operations methods///////////////
-	
-	/////////////////begin getters, setters, and general methods/////////
 
+	/////////////////begin getters, setters, and general methods////////////////
 
+	/**
+	 * set the unit map of the current Quantity
+	 * @param m the map to set it to
+	 */
 	public void setMap(HashMap<String,Integer> m){
 		units = m;
 	}
 
-	public String toString()
-	{ 
-		// XXX You will need to fix these lines to match your fields! 
+	/**
+	 * return this quantity's value and units as a string
+	 * @return the string representing this quantity
+	 */
+	public String toString(){ 
 		double valueOfTheQuantity = this.value;
 		Map<String,Integer> mapOfTheQuantity = this.units;
 		// Ensure we get the units in order 
@@ -379,16 +382,33 @@ public class Quantity {
 		return df.format(valueOfTheQuantity)+ unitsString.toString();
 	}
 
+	/**
+	 * checks if this quantity is the same as another, calculated by the  
+	 * toString() method because small variations in the map and value
+	 * may otherwise affect the .equals of each.
+	 * @param q the quantity to compare to
+	 * @return true if they are equal, false if the two quantities differ.
+	 */
 	public boolean equals(Quantity q){
 		return q.toString().equals(this.toString());
 	}
 
-
+	/**
+	 * get this Quantity's hash code, calculated by the hash code of 
+	 * the toString() method because small variations in the map and value
+	 * may otherwise affect the hash code.
+	 * @return the hash code as an int
+	 */
 	public int hashCode(){
 		return this.toString().hashCode();
 	}
 
-	
+	/**
+	 * if this Quantity has only one unit in it's units map, e.g. seconds^2 
+	 * but not seconds and kg, it will return a string on its one value.
+	 * This is a helper method for the normalize class but can be used independently.
+	 * @return this quantity's unit
+	 */
 	public String getUnit(){
 		TreeSet<String> listUnits = new TreeSet<String>(units.keySet());
 		if(listUnits.size()>1)
@@ -396,13 +416,26 @@ public class Quantity {
 		else return listUnits.pollFirst();
 	}
 
+	/**
+	 * get this Quantity's map of units
+	 * @return the hash map
+	 */
 	public HashMap<String,Integer> getMap(){
 		return (HashMap<String,Integer>)units;
 	}
 
+	/**
+	 * get this Quantity's value
+	 * @return the value
+	 */
 	public double getValue(){
 		return value;
 	}
+
+	/**
+	 * s this Quantity's value
+	 * @param into the new value to set it to
+	 */
 	public void setValue(double into){
 		this.value=into;
 	}
