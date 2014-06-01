@@ -46,7 +46,7 @@ public class Quantity {
 					units.put(s,1);
 				}
 				else{
-					int old = (Integer)units.get(s);
+					Integer old = units.get(s);
 					units.put(s, old+1);
 				}
 			}
@@ -58,7 +58,7 @@ public class Quantity {
 					units.put(s,-1);
 				}
 				else{
-					int old = (Integer)units.get(s);
+					Integer old = units.get(s);
 					units.put(s, old-1);
 				}
 			}
